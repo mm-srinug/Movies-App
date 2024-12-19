@@ -1,5 +1,12 @@
+<app-header></app-header>  
+<main>
+  <router-outlet />
+  <!-- app.component.html -->
+<!-- app.component.html -->
+ <button (click)="SelectClick()">Set Time Now</button>
+  <hr>
+   <input [(ngModel)]="fullName">
 
-<ion-header>
-  <app-header></app-header>  
-</ion-header>
-<ion-router-outlet />
+   <p>{{ fullName }}</p>
+</main>
+<app-footer></app-footer>

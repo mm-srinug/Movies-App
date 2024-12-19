@@ -15,13 +15,17 @@
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>Completed</th>
+                    <th>User Id</th>
                 </tr>
             </thead>    
             <tbody>
                 @for (user of todoItems() | filterTodos : searchTerm(); track $index) {
                 <tr>
                     <td>{{ user.id }}</td>
-                    <td>{{ user.title }}</td>            
+                    <td>{{ user.title }}</td> 
+                    <td>{{user.completed}}</td>
+                    <td>{{user.userId}}</td>         
                 </tr>
                 }
             </tbody>
