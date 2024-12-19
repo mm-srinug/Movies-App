@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Todo } from '../model/todo.model';
+import { Todo } from '../Model/todo.model';
 
 @Pipe({
   name: 'filterTodos',
@@ -13,7 +13,10 @@ export class FilterTodosPipe implements PipeTransform {
     }
     const text = searchTerm.toLowerCase();
     return todos.filter((todo) => {
-      return todo.title.toLowerCase().includes(text);
+      return (
+        todo.title.toLowerCase().includes(text) ||
+        (typeof todo.completed === "boolean" && text === String(todo.completed).toLowerCase())
+      );
     });
   }
 

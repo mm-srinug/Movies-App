@@ -1,6 +1,6 @@
 import { Component, inject, Inject, OnInit, signal } from '@angular/core';
 import { TodosService } from '../services/todos.service';
-import { Todo } from '../model/todo.model';
+import { Todo } from '../Model/todo.model';
 import { catchError } from 'rxjs';
 import { TodoItemComponent } from '../components/todo-item/todo-item.component';
 import { FormsModule } from '@angular/forms';
