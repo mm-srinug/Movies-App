@@ -4,14 +4,14 @@ import { HeaderComponent } from "./components/header/header.component";
 import { IonicModule } from '@ionic/angular';
 import { FooterComponent } from "./components/footer/footer.component";
 import { DetailsComponent } from "./components/details/details.component";
-import { FormsModule } from '@angular/forms';
+import { HomeComponent } from "./home/home.component";
 // import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 // import { BehaviorSubject } from 'rxjs'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, IonicModule, FooterComponent, DetailsComponent, FormsModule],
+  imports: [RouterOutlet, HeaderComponent, IonicModule, FooterComponent, DetailsComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 
@@ -19,13 +19,6 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   title = 'Angular-Movies';
    
-    timeNow = new Date;
-    fullName: any;
-
-    SelectClick (){
-      this.timeNow = new Date;
-      console.log(this.timeNow);
-    }
   // private messaging = getMessaging();
 
   // constructor() {

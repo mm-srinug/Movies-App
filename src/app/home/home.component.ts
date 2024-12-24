@@ -9,5 +9,6 @@ import { DetailsComponent } from "../components/details/details.component";
 })
 export class HomeComponent {
   homeMessage = signal('Hello, world!');
+
 }
 

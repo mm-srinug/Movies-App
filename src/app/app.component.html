@@ -1,12 +1,10 @@
+  <!--Nav Bar-->
 <app-header></app-header>  
-<main>
-  <router-outlet />
-  <!-- app.component.html -->
-<!-- app.component.html -->
- <button (click)="SelectClick()">Set Time Now</button>
-  <hr>
-   <input [(ngModel)]="fullName">
-
-   <p>{{ fullName }}</p>
-</main>
+  
+<!--Application Content-->
+  <div class="container">
+    <app-home> </app-home>
+  </div>
+ 
+  <!--Footer-->
 <app-footer></app-footer>
