@@ -1,3 +1,5 @@
-input {
-    margin-top: 10px;
+.custom-carousel-inner img {
+    max-height: 500px; 
+    object-fit:fill;
+    width:auto;
   }
