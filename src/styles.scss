@@ -1,7 +1,9 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: lightblue;
+    background-color: rgb(110, 117, 119);
+    color: white;
+    font-size: 16px;
 }
  * {
     outline: none;
@@ -9,4 +11,19 @@ html, body {
 
  h1 {
     color:#ffc107;
+ }  
+   
+ @media screen and (max-width: 600px) {
+   .my-element {
+     font-size: 16px;
+     padding: 10px;
+   }
+ }
+
+
+ @media screen and (min-width: 601px) {
+   .my-element {
+     font-size: 24px;
+     padding: 20px;
+   }
  }

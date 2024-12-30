@@ -1,1 +1,92 @@
-<p>search works!</p>
+<div class="container my-4">
+    <h1 class="text-center mb-4">Results for {{ movieTitle }}</h1>
+    <hr>
+    <table class="table table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col" class="text-center">#</th>
+          <th scope="col">Cover</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col" class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" class="text-center">1</th>
+          <td>
+            <img src="https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
+          </td>
+          <td>Movie #1 Title</td>
+          <td>This is a short description for Movie #1 Title.</td>
+          <td class="text-center">
+            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class="bi bi-film"></i> Trailer
+            </a>
+            <a href="#" class="btn btn-primary">
+              <i class="bi bi-eye"></i> Details
+            </a>
+          </td>
+        </tr>
+  
+        <tr>
+          <th scope="row" class="text-center">2</th>
+          <td>
+            <img src="https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
+          </td>
+          <td>Movie #2 Title</td>
+          <td>This is a short description for Movie #2 Title.</td>
+          <td class="text-center">
+            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class="bi bi-film"></i> Trailer
+            </a>
+            <a href="#" class="btn btn-primary">
+              <i class="bi bi-eye"></i> Details
+            </a>
+          </td>
+        </tr>
+  
+        <tr>
+          <th scope="row" class="text-center">3</th>
+          <td>
+            <img src="https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg hover-effect" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
+          </td>
+          <td>Movie #3 Title</td>
+          <td>This is a short description for Movie #3 Title.</td>
+          <td class="text-center">
+            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <i class="bi bi-film"></i> Trailer
+            </a>
+            <a href="#" class="btn btn-primary">
+              <i class="bi bi-eye"></i> Details
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{movieTitle}}</h1>
+      </div>
+      <div class="modal-body">
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/h44kpghglWw?si=4YBYDgKpSZcVKlCd"
+            title="Movie Trailer"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
