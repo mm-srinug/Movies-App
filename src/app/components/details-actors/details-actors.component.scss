@@ -1,0 +1,46 @@
+  /* Parent container for all actor cards */
+    .actors-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem;
+      background-color: transparent;
+    }
+
+    /* Individual actor card */
+    .actor-card {
+      text-align: center;
+      background-color: #1c1c1c;
+      border-radius: 8px;
+      padding: 1rem;
+      width: 150px;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .actor-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Image styling */
+    .actor-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Caption styling */
+    .actor-caption {
+      color: aliceblue;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0.25rem 0;
+    }
+
+    .actor-role {
+      color: #bbb;
+      font-size: 14px;
+      font-style: italic;
+    }

@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './search.component.scss'
 })
 export class SearchComponent {
-
+  movieTitle = 'Your Movie';
 }

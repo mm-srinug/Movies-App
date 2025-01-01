@@ -36,9 +36,9 @@ export class HomeComponent implements OnInit {
     const remainingMinutes = minutes % 60;
 
     if (days > 0) {
-      this.lastUpdated = `${days} days, ${remainingHours} hours:${remainingMinutes} minutes`;
+      this.lastUpdated = `${days} days, ${remainingHours} hours: ${remainingMinutes} minutes`;
     } else if (hours > 0) {
-      this.lastUpdated = `${hours} hours:${remainingMinutes} minutes`;
+      this.lastUpdated = `${hours} hours: ${remainingMinutes} minutes`;
     } else {
       this.lastUpdated = `${remainingMinutes} minutes`;
     }

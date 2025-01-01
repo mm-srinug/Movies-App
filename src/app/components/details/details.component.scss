@@ -1,0 +1,46 @@
+.card {
+    margin: 1rem;
+    .card-header {
+        background-color: #e9e067;
+        color: #3a3636;
+        text-align: center;
+    }  
+    .list-group-item {
+        background-color: #b4bba6;
+        color: #ec3e4a;
+    }
+}
+
+.container {
+    margin-top: 20px;
+  }
+  
+  .ratio {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 767px) {
+    .video-container {
+        padding-bottom: 75%;
+    }
+}
+
