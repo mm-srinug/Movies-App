@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <h1 class="text-center my-4">Movie Title</h1>
 
   <div class="row g-4">
@@ -55,9 +55,14 @@
 
   <div class="row g-4">
     <div class="col-md-6">
-      <h2>Actors</h2>
+      <h1>Actors</h1>
       <div class="text-center">
         <app-details-actors></app-details-actors>
+      </div>
+      <div class="text-center mt-3">
+        <a class="btn btn-warning" [routerLink]="['/details/actors/'+movieId]">
+          View all actors
+        </a>
       </div>
     </div>
   </div>
@@ -66,12 +71,14 @@
 
   <div class="row g-4">
     <div class="col-md-6">
-      <h2>Reviews</h2>
+      <h1>Reviews</h1>
       <div class="text-center">
         <app-details-reviews></app-details-reviews>
       </div>
       <div class="text-center mt-3">
-        <a href="#" class="btn btn-warning">View all reviews</a>
+        <a class="btn btn-warning" [routerLink]="['/details/reviews/'+movieId]">
+          View all reviews
+        </a>      
       </div>
     </div>
   </div>
@@ -80,9 +87,14 @@
 
   <div class="row g-4">
     <div class="col-md-6">
-      <h2>Similar Movies</h2>
+      <h1>Similar Movies</h1>
       <div class="text-center">
         <app-details-movies></app-details-movies>
+      </div>
+      <div class="text-center mt-3">
+        <a class="btn btn-warning" [routerLink]="['/details/movies/'+movieId]">
+          View all movies
+          </a>
       </div>
     </div>
   </div>
