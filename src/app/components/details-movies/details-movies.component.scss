@@ -2,8 +2,18 @@ img {
     max-width: 150px;
  }
 
-.figure {
-      margin: 1rem;
+.figure{
+      margin: 1rem; 
+      .card {
+        background-color: #1c1c1c;
+        color: aliceblue;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s;
+        &:hover {
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+      }   
 }
 
 .figure-caption {
@@ -11,3 +21,4 @@ img {
     font-size: 18px;
     font-weight: bold;
 }
+
