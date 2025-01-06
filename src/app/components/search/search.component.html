@@ -4,66 +4,41 @@
     <table class="table table-hover align-middle">
       <thead class="table-dark">
         <tr>
-          <th scope="col" class="text-center">#</th>
-          <th scope="col">Cover</th>
-          <th scope="col">Title</th>
-          <th scope="col">Description</th>
-          <th scope="col" class="text-center">Actions</th>
+          <th scope="col" class="text-center">Id</th>
+          <th scope="col" class="text-center">Image</th>
+          <th scope="col" class="text-center">Title</th>
+          <th scope="col" class="text-center">Description</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row" class="text-center">1</th>
+        <tr *ngFor="let movie of movies">
+          <td>{{movie.id}}</td>
           <td>
-            <img src="https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
+            <img [src]="movie.cover" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
           </td>
-          <td>pushpa</td>
-          <td>This is a short description for Pushpa</td>
+          <td>{{movie.title}}</td>
+          <td>{{movie.description}}</td>
           <td class="text-center">
-            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="showTrailer(movie.trailer, movie.title)">
               <i class="bi bi-film"></i> Trailer
-            </a>
-            <a href="#" class="btn btn-primary">
-              <i class="bi bi-eye"></i> Details
+            </a>          
+          </td>
+          <td class="text-center">
+            <a [routerLink]="['/details/'+movie.id]" class="btn btn-primary">
+              <i class="bi bi-info-circle"></i> Details
             </a>
           </td>
         </tr>
-  
-        <tr>
-          <th scope="row" class="text-center">2</th>
-          <td>
-            <img src="https://image.tmdb.org/t/p/original/cpz0u8sK993MhIQ46xL4l6b40Cg.jpg" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
-          </td>
-          <td>Guntur karam</td>
-          <td>This is a short description for Guntur karam</td>
-          <td class="text-center">
-            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              <i class="bi bi-film"></i> Trailer
-            </a>
-            <a href="#" class="btn btn-primary">
-              <i class="bi bi-eye"></i> Details
-            </a>
-          </td>
+        <tr *ngIf="movies.length > 0">
+          <td colspan="6" class="text-center bg-dark text-white">Total movies found: {{movies.length}}</td>
         </tr>
-  
-        <tr>
-          <th scope="row" class="text-center">3</th>
-          <td>
-            <img src="https://image.tmdb.org/t/p/original/w46Vw536HwNnEzOa7J24YH9DPRS.jpg" class="img-thumbnail hover-effect" alt="Movie Cover" width="100">
-          </td>
-          <td>My Fault</td>
-          <td>This is a short description for My Fault</td>
-          <td class="text-center">
-            <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              <i class="bi bi-film"></i> Trailer
-            </a>
-            <a href="#" class="btn btn-primary">
-              <i class="bi bi-eye"></i> Details
-            </a>
-          </td>
+        <tr *ngIf="movies.length === 0">
+          <td colspan="6" class="text-center">No movies found</td>       
         </tr>
       </tbody>
-    </table>
+    </table>   
   </div>
     
 
@@ -72,15 +47,19 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{movieTitle}}</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ selectedMovieTitle }}</h1>
       </div>
       <div class="modal-body">
         <div class="ratio ratio-16x9">
           <iframe
-            src="https://www.youtube.com/embed/h44kpghglWw?si=4YBYDgKpSZcVKlCd"
+            *ngIf="selectedTrailer"
+            [src]="selectedTrailer"
             title="Movie Trailer"
             allowfullscreen>
           </iframe>
+          <div *ngIf="!selectedTrailer" class="no-trailer-message">
+          <p>Trailer not available</p>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

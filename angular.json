@@ -27,7 +27,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
+              "src/assets",             
               {
                 "glob": "**/*",
                 "input": "src/assets",
@@ -35,9 +35,13 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/slick-carousel/slick/slick.css",
+              "node_modules/slick-carousel/slick/slick-theme.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/slick-carousel/slick/slick.min.js"
+            ]
           },
           "configurations": {
             "production": {

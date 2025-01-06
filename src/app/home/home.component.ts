@@ -1,9 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, signal , OnInit} from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TruncatePipe } from '../pipes/truncate.pipe'
+import { MovieService } from '../services/movie.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, TruncatePipe,],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -11,39 +16,89 @@ export class HomeComponent implements OnInit {
   homeMessage = signal('Hello, world!');
   startTime: Date = new Date();
   lastUpdated: any;
+  carouselItems: any[] = [];
+  fanfavorites: any[] = [];
+  selectedTrailerUrl: import('@angular/platform-browser').SafeResourceUrl | null = null;
+  showPopup: boolean = false;
+  
 
-  constructor() { }
+  constructor(private http: HttpClient, private movieService: MovieService, private sanitizer: DomSanitizer) { 
+   }
 
   ngOnInit(): void {
-    const storedStartTime = localStorage.getItem('startTime');
-    if (storedStartTime) {
-      this.startTime = new Date(storedStartTime);
-    } else {
-      this.startTime = new Date();
-      localStorage.setItem('startTime', this.startTime.toISOString());
-    }
-    this.updateLastUpdated();
-    setInterval(() => this.updateLastUpdated(), 60000); 
+    this.lastUpdated = this.updateLastUpdated(this.startTime.getTime());
+    this.fetchMovies();
+    this.getPopularMovies();
   }
 
- 
-  updateLastUpdated(): void {
-    const now = new Date();
-    const elapsedTime = now.getTime() - this.startTime.getTime();
-    const minutes = Math.floor(elapsedTime / 60000);
+  updateLastUpdated(timestamp: number): string {
+    const now = new Date().getTime();
+    const diff = now - timestamp;
+
+    const minutes = Math.floor(diff / (1000 * 60));
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    const remainingHours = hours % 24;
-    const remainingMinutes = minutes % 60;
 
     if (days > 0) {
-      this.lastUpdated = `${days} days, ${remainingHours} hours: ${remainingMinutes} minutes`;
+      return `${days} day${days > 1 ? 's' : ''} ago`;
     } else if (hours > 0) {
-      this.lastUpdated = `${hours} hours: ${remainingMinutes} minutes`;
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (minutes > 0) {
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
     } else {
-      this.lastUpdated = `${remainingMinutes} minutes`;
+      return 'Just now';
     }
+  }  
+    
+  getPopularMovies(): void {
+    this.movieService.getPopularMovies().subscribe({
+      next: (res: any) => {
+        this.fanfavorites = res.results.map((movie: any) => ({
+           id : movie.id,
+           title: movie.title,
+           description: movie.overview,
+           release_date: movie.release_date,
+           vote_average: movie.vote_average,
+           vote_count: movie.vote_count,
+          imageUrl: `https://image.tmdb.org/t/p/original${movie.poster_path}`
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching movies:', err);
+      }
+    });
+  }
+
+  fetchMovies(): void {
+    this.movieService.fetchMovies().subscribe({
+      next: (res: any) => {
+        this.carouselItems = res.results.map((movie: any) => ({
+           id : movie.id,
+           title: movie.title,
+           description: movie.overview,
+          imageUrl: `https://image.tmdb.org/t/p/original${movie.poster_path}`
+        }));
+      },
+      error: (err) => {
+        console.error('Error fetching movies:', err);
+      }
+    });
+  }  
+
+  getTrailer(movieId: number): void {
+    this.movieService.getMovieTrailers(movieId).subscribe(
+      (res) => {
+        this.selectedTrailerUrl = res.results[0]?.key; 
+        if (this.selectedTrailerUrl) {         
+          this.selectedTrailerUrl  = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.selectedTrailerUrl}`);
+          this.showPopup = true;
+        }
+      },
+      (error) => console.error(error)
+    );
+  }
+  
+  closePopup(){
+    this.showPopup = false;
   }
 }
-
-

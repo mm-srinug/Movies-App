@@ -1,33 +1,25 @@
 <div class="container-fluid">
   <div class="row">
+    <!-- Carousel -->
     <div class="col-md-8">
       <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button *ngFor="let item of carouselItems; let i = index" type="button"
+            [class.active]="i === 0"
+            [attr.data-bs-slide-to]="i"
+            [attr.data-bs-target]="'#carouselExampleCaptions'"
+            [attr.aria-label]="'Slide ' + (i + 1)"
+            [attr.aria-current]="i === 0 ? 'true' : null"></button>
         </div>
         <div class="carousel-inner custom-carousel-inner">
-          <div routerLink="details/1" class="carousel-item active">
-            <img src="https://image.tmdb.org/t/p/original/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg" class="d-block w-100" alt="Aladdin">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Aladdin</h5>
-              <p>Some representative description for the first slide.</p>
-            </div>
-          </div>
-          <div routerLink="details/2" class="carousel-item">
-            <img src="https://image.tmdb.org/t/p/original/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg" class="d-block w-100" alt="Lion King">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Lion King</h5>
-              <p>Some representative description for the second slide.</p>
-            </div>
-          </div>
-          <div routerLink="details/3" class="carousel-item">
-            <img src="https://image.tmdb.org/t/p/original/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg" class="d-block w-100" alt="Monna 2">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Monna 2</h5>
-              <p>Some representative description for the third slide.</p>
-            </div>
+          <div *ngFor="let item of carouselItems; let i = index" class="carousel-item" [class.active]="i === 0">
+            <a [routerLink]="['/details', item.id]">
+              <img [src]="item.imageUrl" class="d-block w-100" [alt]="item.title">
+              <div class="carousel-caption d-none d-md-block bg-dark">
+                <h5>{{ item.title }}</h5>
+                <p>{{ item.description }}</p>
+              </div>
+            </a>
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -40,44 +32,25 @@
         </button>
       </div>
     </div>
+
+    <!-- Cards -->
     <div class="col-md-4">
-      <div routerLink="details/1" class="card mb-3" style="max-width: 540px;">
+      <div *ngFor="let card of carouselItems  | slice:0:2" class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="https://image.tmdb.org/t/p/original/aosm8NMQ3UyoBVpSxyimorCQykC.jpg" class="img-fluid rounded-start" alt="Venom">
+            <a [routerLink]="['/details', card.id]">
+              <img [src]="card.imageUrl" class="img-fluid rounded-start" [alt]="card.title">
+            </a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Venom</h5>
-              <p class="card-text">Eddie and Venom are on the run down on Venom.</p>
+              <h5 class="card-title">{{ card.title }}</h5>
+              <p class="card-text">{{ card.description | truncate:15 }}</p>
               <p class="card-text">
-                <a class="btn btn-warning">
-                  <i class="bi bi-film"></i> Trailer
-                </a>
+                  <button  class="btn btn-warning" (click)="getTrailer(card.id)"><i class="bi bi-film"></i> Trailer</button>
               </p>
               <p class="card-text">
-                <small class="text-body-secondary">Last updated 2 hours ago</small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div routerLink="details/2" class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg" class="img-fluid rounded-start" alt="Pushpa 2">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Pushpa 2</h5>
-              <p class="card-text">Pushpa struggles to sustain his sandalwood smuggling business.</p>
-              <p class="card-text">
-                <a class="btn btn-warning">
-                  <i class="bi bi-film"></i> Trailer
-                </a>
-              </p>
-              <p class="card-text">
-                <small class="text-body-secondary">Last updated 1 day ago</small>
+                <small class="text-body-secondary">Last updated {{ updateLastUpdated(card.lastUpdatedTimestamp) }}</small>
               </p>
             </div>
           </div>
@@ -85,65 +58,46 @@
       </div>
     </div>
   </div>
+
   <br>
   <div class="row">
     <h1>Fan Favorites</h1>
     <hr>
-    <div class="col-md-3" routerLink="details/1">
+    <div class="col-md-3" *ngFor="let item of fanfavorites">
       <div class="card h5">
-        <img src="https://image.tmdb.org/t/p/original/uQhYBxOVFU6s9agD49FnGHwJqG5.jpg" class="card-image img-fluid rounded-start" alt="Elevation">
+        <a [routerLink]="['/details', item.id]">
+          <img [src]="item.imageUrl" class="card-image img-fluid rounded-start" [alt]="item.title">
+        </a>
         <div class="card-body">
-          <h5 class="card-title">Elevation</h5>
-          <p class="card-text text-body-secondary">Anthony Mackie</p>
+          <h5 class="card-title">{{ item.title }}</h5>
+          <p class="card-text text-body-secondary text-center"><i class="bi bi-calendar-fill"></i> {{ item.release_date }}</p>
         </div>
         <div class="card-footer text-center text-muted">
-          <span style="float:left"><i class="bi bi-calendar-fill"></i> 2024</span>
-          <span> <i class="bi bi-star-fill"></i> 5/10</span>
-          <span style="float:right"><i class="bi bi-trophy-fill"></i> 1</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3" routerLink="details/2">
-      <div class="card h5">
-        <img src="https://image.tmdb.org/t/p/original/w46Vw536HwNnEzOa7J24YH9DPRS.jpg" class="card-image img-fluid rounded-start" alt="My Fault">
-        <div class="card-body">
-          <h5 class="card-title">My Fault</h5>
-          <p class="card-text text-body-secondary">Nicole Wallace</p>
-        </div>
-        <div class="card-footer text-center text-muted">
-          <span style="float:left"><i class="bi bi-calendar-fill"></i> 2025</span>
-          <span> <i class="bi bi-star-fill"></i> 8.5/10</span>
-          <span style="float:right"><i class="bi bi-trophy-fill"></i> 3</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3" routerLink="details/3">
-      <div class="card h5">
-        <img src="https://image.tmdb.org/t/p/original/wIwM0QhjS6BuoB5UrHykZWXOUh6.jpg" class="card-image img-fluid rounded-start" alt="Deadpool & Wolverine">
-        <div class="card-body">
-          <h5 class="card-title">Deadpool & Wolverine</h5>
-          <p class="card-text text-body-secondary">Ryan Reynolds</p>
-        </div>
-        <div class="card-footer text-center text-muted">
-          <span style="float:left"><i class="bi bi-calendar-fill"></i> 2023</span>
-          <span> <i class="bi bi-star-fill"></i> 7/10</span>
-          <span style="float:right"><i class="bi bi-trophy-fill"></i> 5</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3" routerLink="details/4">
-      <div class="card h5">
-        <img src="https://image.tmdb.org/t/p/original/cpz0u8sK993MhIQ46xL4l6b40Cg.jpg" class="card-image img-fluid rounded-start" alt="Gutur Karam">
-        <div class="card-body">
-          <h5 class="card-title">Gutur Karam</h5>
-          <p class="card-text text-body-secondary">Mahesh Babu</p>
-        </div>
-        <div class="card-footer text-center text-muted">
-          <span style="float:left"><i class="bi bi-calendar-fill"></i> 2024</span>
-          <span> <i class="bi bi-star-fill"></i> 9.5/10</span>
-          <span style="float:right"><i class="bi bi-trophy-fill"></i> 5</span>
+          <span style="float:left"> <i class="bi bi-star-fill"></i> {{ item.vote_average }}</span>
+          <span style="float:right"><i class="bi bi-trophy-fill"></i> {{ item.vote_count }}</span>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<!--Movie Trailer -->
+
+<div *ngIf="showPopup" class="video-container">
+  <div class="popup-content">
+    <div class="ratio ratio-16x9">
+      <iframe 
+        width="560" 
+        height="315" 
+        [src]="selectedTrailerUrl"
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
+

@@ -1,11 +1,12 @@
-<div class="container-fluid">
-  <h1 class="text-center my-4">Movie Title</h1>
+<div class="container-fluid" *ngIf="movieDetails">
+  <h1 class="text-center my-4">{{ movieDetails.title }}</h1>
 
   <div class="row g-4">
     <div class="col-lg-6">
       <div class="ratio ratio-16x9">
         <iframe
-          src="https://www.youtube.com/embed/h44kpghglWw?si=4YBYDgKpSZcVKlCd"
+          *ngIf="movieDetails.poster_path"
+          [src]="poster"
           title="Movie Trailer"
           allowfullscreen>
         </iframe>
@@ -13,15 +14,15 @@
     </div>
 
     <div class="col-lg-6">
-      <p class="lead">This is going to be a placeholder for the movie plot</p>
+      <p class="lead">{{ movieDetails.overview }}</p>
       <div class="row g-3">
         <div class="col-md-4">
           <div class="card">
             <div class="card-header">Stars</div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Star 1 Name</li>
-              <li class="list-group-item">Star 2 Name</li>
-              <li class="list-group-item">Star 3 Name</li>
+              <li class="list-group-item" *ngFor="let star of movieDetails.stars">
+                {{ star }}
+              </li>
             </ul>
           </div>
         </div>
@@ -30,9 +31,9 @@
           <div class="card">
             <div class="card-header">Directors</div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Director 1 Name</li>
-              <li class="list-group-item">Director 2 Name</li>
-              <li class="list-group-item">Director 3 Name</li>
+              <li class="list-group-item" *ngFor="let director of movieDetails.directors">
+                {{ director }}
+              </li>
             </ul>
           </div>
         </div>
@@ -41,9 +42,9 @@
           <div class="card">
             <div class="card-header">Genres</div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Genre 1 Name</li>
-              <li class="list-group-item">Genre 2 Name</li>
-              <li class="list-group-item">Genre 3 Name</li>
+              <li class="list-group-item" *ngFor="let genre of movieDetails.genres">
+                {{ movieDetails }}
+              </li>
             </ul>
           </div>
         </div>
@@ -60,7 +61,7 @@
         <app-details-actors></app-details-actors>
       </div>
       <div class="text-center mt-3">
-        <a class="btn btn-warning" [routerLink]="['/details/actors/'+movieId]">
+        <a class="btn btn-warning" [routerLink]="['/details/actors', movieId]">
           View all actors
         </a>
       </div>
@@ -76,7 +77,7 @@
         <app-details-reviews></app-details-reviews>
       </div>
       <div class="text-center mt-3">
-        <a class="btn btn-warning" [routerLink]="['/details/reviews/'+movieId]">
+        <a class="btn btn-warning" [routerLink]="['/details/reviews', movieId]">
           View all reviews
         </a>      
       </div>
@@ -92,9 +93,9 @@
         <app-details-movies></app-details-movies>
       </div>
       <div class="text-center mt-3">
-        <a class="btn btn-warning" [routerLink]="['/details/movies/'+movieId]">
+        <a class="btn btn-warning" [routerLink]="['/details/movies', movieId]">
           View all movies
-          </a>
+        </a>
       </div>
     </div>
   </div>

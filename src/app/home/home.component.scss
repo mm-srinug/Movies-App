@@ -8,7 +8,7 @@
   /* Carousel Styling */
   .custom-carousel-inner img {
     max-height: 500px;
-    object-fit:initial;
+    object-fit:fill;
     width:auto;
   }
   
@@ -45,5 +45,67 @@
   
   .card-footer span {
     display: inline-block;
+  }
+
+
+  .video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .ratio {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .ratio iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 0.5rem 1rem;
+  }
+  
+  .modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  .modal-footer .btn-secondary:focus {
+    box-shadow: none;
   }
   

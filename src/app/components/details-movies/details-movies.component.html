@@ -1,25 +1,11 @@
 
 <div class="row">
     <div class="col-12">
-            <figure class="figure">
+            <figure class="figure" *ngFor="let item of details">
                 <div class="card">
-                <img src="https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg" class="card-image img-fluid rounded-start" alt="...">
-                <figcaption class="figure-caption">Movie #1 </figcaption>
-                <figcaption class="figure-caption"><i class="bi bi-star"></i> <b>9.1/10</b></figcaption>
-            </div>
-            </figure>
-            <figure class="figure">
-                <div class="card">
-                <img src="https://image.tmdb.org/t/p/original/wIwM0QhjS6BuoB5UrHykZWXOUh6.jpg" class="card-image img-fluid rounded-start" alt="...">
-                <figcaption class="figure-caption">Movie #2</figcaption>
-                <figcaption class="figure-caption">(Role)</figcaption>
-            </div>
-            </figure>
-            <figure class="figure">
-                <div class="card">
-                <img src="https://image.tmdb.org/t/p/original/w46Vw536HwNnEzOa7J24YH9DPRS.jpg" class="card-image img-fluid rounded-start" alt="...">
-                <figcaption class="figure-caption">Movie #3</figcaption>
-                <figcaption class="figure-caption">(Role)</figcaption>
+                <img [src]="item.cover" class="card-image img-fluid rounded-start" alt="...">
+                <figcaption class="figure-caption">{{item.title}} </figcaption>
+                <figcaption class="figure-caption"><i class="bi bi-star"></i> <b>{{item.rating}}</b></figcaption>
             </div>
             </figure>
     </div>
