@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnChanges, OnInit, Sanitizer, SimpleChanges } from '@angular/core';
 import { DetailsMoviesComponent } from "../details-movies/details-movies.component";
 import { DetailsReviewsComponent } from "../details-reviews/details-reviews.component";
 import { DetailsActorsComponent } from "../details-actors/details-actors.component";
@@ -6,42 +6,80 @@ import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MovieService } from '../../services/movie.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { FilterByJobPipe } from '.././../pipes/filter-by-job.pipe'; 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [DetailsMoviesComponent, DetailsReviewsComponent, DetailsActorsComponent, RouterLink,CommonModule],
+  imports: [DetailsMoviesComponent, DetailsReviewsComponent, DetailsActorsComponent, RouterLink,CommonModule,FilterByJobPipe],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit, OnChanges, AfterContentInit, AfterViewInit {
   movieId: number | null = null;
   movieDetails: any = {};
-  stars = [1,2,3,4];
-  directors = ['Steven Spielberg', 'Christopher Nolan', 'Martin Scorsese','Quentin Tarantino'];
-  generes = ['Action', 'Adventure', 'Comedy', 'Drama'];
   poster: any;
-
+  selectedTrailerUrl: import('@angular/platform-browser').SafeResourceUrl | null = null;
+  showPopup: boolean = false;
   trailers: any[] = [];
+  credits: any = {};
+  videos: any = [];
+  
 
-  constructor(private _activatedRoute: ActivatedRoute, private http: HttpClient, private movieService: MovieService) {
-    this._activatedRoute.params.subscribe((params) => {
-      this.movieId = +params['id'];
-      if (this.movieId) {
-        this.fetchMovieDetails(this.movieId);
+  constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService, private sanitizer: DomSanitizer) {
+  }
+  
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const movieId = params.get('id');
+      if (movieId) {
+        this.getMovieDetails(movieId);
+        this.getMovieCredits(movieId);
+      }
+    });
+   } 
+  getMovieDetails(movieId: string): void {
+    this.movieService.getMovieDetails(movieId).subscribe({
+      next: (res: any) => {
+        this.movieDetails = res;
+        this.getMovieTrailers(movieId);
+      },
+      error: (err) => {
+        console.error('Error fetching movie details:', err);
+      }
+    });
+  } 
+
+  getMovieTrailers(movieId: string): void {
+    this.movieService.getMovieTrailers(Number(movieId)).subscribe({
+      next: (res: any) => {
+        if (res.results.length > 0) {
+          this.selectedTrailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+            'https://www.youtube.com/embed/' + res.results[0]?.key
+          );
+        } else {
+          this.selectedTrailerUrl = null; 
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching movie trailers:', err);
       }
     });
   }
-    
-
-
-    
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges called.');
+  
+  getMovieCredits(movieId: string): void {
+    this.movieService.getMovieCredits(movieId).subscribe({
+      next: (res: any) => {
+        this.credits = res;
+      },
+      error: (err) => {
+        console.error('Error fetching movie credits:', err);
+      }
+    });
   }
 
-  ngOnInit(): void {
-    console.log('ngOnInit called.');
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('ngOnChanges called.');
   }
 
   ngAfterContentInit(): void {
@@ -50,17 +88,6 @@ export class DetailsComponent implements OnInit, OnChanges, AfterContentInit, Af
 
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit called.');
-  }
-
-  fetchMovieDetails(id: number): void {
-    const API_KEY = '1be06d8ed8e69a40859258563b26f0e7';
-    const API_URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
-
-    this.http.get(API_URL).subscribe((res: any) => {
-      this.movieDetails = res;
-      this.poster = `https://image.tmdb.org/t/p/original${this.movieDetails.poster_path}`
-    });
-  }
-
+  } 
 
 }

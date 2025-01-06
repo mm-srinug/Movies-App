@@ -30,7 +30,22 @@ export class MovieService {
     const apiUrl = `${environment.apiBaseUrl}/movie/popular?api_key=${environment.apiKey}`;
     return this.http.get(apiUrl);
   } 
+
+  getMovieDetails(movieId: string): Observable<any> {
+    const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}?api_key=${environment.apiKey}`;
+    return this.http.get(apiUrl);
+  }
   
+  getMovieCredits(movieId: string): Observable<any> {
+    const creditsUrl = `${environment.apiBaseUrl}/movie/${movieId}/credits?api_key=${environment.apiKey}`;
+    return this.http.get(creditsUrl);
+  }
+  
+  getActors(movieId: string): Observable<any> {
+    const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/credits?api_key=${environment.apiKey}`;
+    return this.http.get(apiUrl);
+  }
+   
 }
 
 

@@ -5,11 +5,14 @@
     <div class="col-lg-6">
       <div class="ratio ratio-16x9">
         <iframe
-          *ngIf="movieDetails.poster_path"
-          [src]="poster"
+          *ngIf="selectedTrailerUrl"
+          [src]="selectedTrailerUrl"
           title="Movie Trailer"
           allowfullscreen>
         </iframe>
+        <div *ngIf="!selectedTrailerUrl" class="no-trailer-message">
+          <p>Trailer not available</p>
+          </div>
       </div>
     </div>
 
@@ -18,32 +21,31 @@
       <div class="row g-3">
         <div class="col-md-4">
           <div class="card">
-            <div class="card-header">Stars</div>
+            <div class="card-header">Characters</div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let star of movieDetails.stars">
-                {{ star }}
+              <li class="list-group-item" *ngFor="let star of (credits.cast.slice(0, 3))">
+                {{ star.name }} as {{ star.character }}
               </li>
+              
             </ul>
           </div>
         </div>
-
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-header">Directors</div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let director of movieDetails.directors">
-                {{ director }}
-              </li>
-            </ul>
-          </div>
-        </div>
-
         <div class="col-md-4">
           <div class="card">
             <div class="card-header">Genres</div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item" *ngFor="let genre of movieDetails.genres">
-                {{ movieDetails }}
+                {{ genre.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">Directors</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let director of credits.crew | filterByJob:'Director'">
+                {{ director.name }}
               </li>
             </ul>
           </div>
