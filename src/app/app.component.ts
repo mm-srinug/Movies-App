@@ -7,7 +7,6 @@ import { HomeComponent } from "./home/home.component";
 import { DetailsComponent } from "./components/details/details.component";
 import { NgModel } from '@angular/forms';
 import { SearchComponent } from "./components/search/search.component";
-import { NotFoundError } from 'rxjs';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
