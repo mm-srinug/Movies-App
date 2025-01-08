@@ -1,12 +1,14 @@
   .accordion {
    justify-content: center;
+   
   .accordion-header {
     background-color: #9b8f8f;
     border: none;
   }
   .accordion-item {
-    background-color: transparent;
-    border: none;
+    background-color:#4389c7;
+    border: 2px;;
+    margin-bottom: 15px;
   }
 
   .accordion-button {
@@ -20,3 +22,11 @@
     background-color:antiquewhite; 
   } 
   }
+
+  .btn-secondary {
+    background-color: #4389c7;
+    color: white;
+    border: 1px;;
+    cursor: not-allowed;
+  }
+  

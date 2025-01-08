@@ -35,7 +35,7 @@
 
     <!-- Cards -->
     <div class="col-md-4">
-      <div *ngFor="let card of carouselItems  | slice:0:2" class="card mb-3" style="max-width: 540px;">
+      <div *ngFor="let card of moviecards  | slice:0:2" class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
             <a [routerLink]="['/details', card.id]">

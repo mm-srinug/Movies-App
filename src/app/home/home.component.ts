@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   fanfavorites: any[] = [];
   selectedTrailerUrl: import('@angular/platform-browser').SafeResourceUrl | null = null;
   showPopup: boolean = false;
-  
+  moviecards: any[] = []
 
   constructor(private http: HttpClient, private movieService: MovieService, private sanitizer: DomSanitizer) { 
    }
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
     this.lastUpdated = this.updateLastUpdated(this.startTime.getTime());
     this.fetchMovies();
     this.getPopularMovies();
+    this.fetchcardMovies();
   }
 
   updateLastUpdated(timestamp: number): string {
@@ -49,18 +50,34 @@ export class HomeComponent implements OnInit {
       return 'Just now';
     }
   }  
-    
+  
+  fetchcardMovies(): void {
+    this.movieService.fetchcardMovies().subscribe({
+      next: (res: any) => {
+        this.moviecards = res.results.map((card: any) => ({
+             id : card.id,
+             title: card.title,
+             description: card.overview,
+            imageUrl: `https://image.tmdb.org/t/p/original${card.poster_path}`
+        }));
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
   getPopularMovies(): void {
     this.movieService.getPopularMovies().subscribe({
       next: (res: any) => {
-        this.fanfavorites = res.results.map((movie: any) => ({
-           id : movie.id,
-           title: movie.title,
-           description: movie.overview,
-           release_date: movie.release_date,
-           vote_average: movie.vote_average,
-           vote_count: movie.vote_count,
-          imageUrl: `https://image.tmdb.org/t/p/original${movie.poster_path}`
+        this.fanfavorites = res.results.map((item: any) => ({
+           id : item.id,
+           title: item.title,
+           description: item.overview,
+           release_date: item.release_date,
+           vote_average: item.vote_average,
+           vote_count: item.vote_count,
+          imageUrl: `https://image.tmdb.org/t/p/original${item.poster_path}`
         }));
       },
       error: (err) => {

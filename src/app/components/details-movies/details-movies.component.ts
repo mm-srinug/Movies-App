@@ -1,30 +1,47 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-details-movies',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './details-movies.component.html',
   styleUrl: './details-movies.component.scss'
 })
 export class DetailsMoviesComponent {
- 
-  details = [
-       {   
-        cover:'https://image.tmdb.org/t/p/original/4YZpsylmjHbqeWzjKpUEF8gcLNW.jpg',
-        title: 'Monna 2',
-        rating: '9.1/10'
-      },
-      {
-       cover:'https://image.tmdb.org/t/p/original/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg', 
-       title: 'Lion King',
-       rating: '8.1/10'
+ details: any[] = []
+ @Input() limit?: number;
+
+
+constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService) {
+
+ } 
+   
+ ngOnInit(): void {
+  this.route.paramMap.subscribe(params => {
+    const movieId: any = params.get('id');
+    if (movieId) {
+      this.fetchSimilarMovies(movieId);
+    }
+  });
+ }
+
+ fetchSimilarMovies(movieId: number): void {
+  this.movieService.getSimilarMovies(movieId).subscribe({
+    next: (res: any) => {
+      this.details = res.results || [];
+      if (this.limit) {
+        this.details = this.details.slice(0, this.limit);
+      }
     },
-    {
-      cover:'https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg', 
-      title: 'Pushpa 2',
-      rating: '7.1/10'
-  }
-  ]
+    error: (err) => {
+      console.error('Error fetching movie credits:', err);
+    }
+  });
+}
+
+ 
 
 }
