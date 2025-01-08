@@ -21,6 +21,12 @@ export class MovieService {
     return this.http.get(apiUrl);
   }
   
+  fetchcardMovies(): Observable<any> {
+    const randomPage =Math.floor(Math.random() * 500)  +1;
+    const apiUrl =`${environment.apiBaseUrl}/trending/all/day?api_key=${environment.apiKey}&page=${randomPage}`;
+    return this.http.get(apiUrl);
+  }
+
   getMovieTrailers(movieId: number): Observable<any> {
     const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/videos?api_key=${environment.apiKey}`;  
     return this.http.get(apiUrl);
@@ -37,12 +43,17 @@ export class MovieService {
   }
   
   getMovieCredits(movieId: string): Observable<any> {
-    const creditsUrl = `${environment.apiBaseUrl}/movie/${movieId}/credits?api_key=${environment.apiKey}`;
-    return this.http.get(creditsUrl);
+    const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/credits?api_key=${environment.apiKey}`;
+    return this.http.get<any>(apiUrl);
   }
   
-  getActors(movieId: string): Observable<any> {
-    const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/credits?api_key=${environment.apiKey}`;
+  getSimilarMovies(movieId: number): Observable<any> {
+    const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/similar?api_key=${environment.apiKey}`;
+    return this.http.get(apiUrl);
+  }
+
+  getReview(movieId: number): Observable<any> {
+    const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/reviews?api_key=${environment.apiKey}`;
     return this.http.get(apiUrl);
   }
    

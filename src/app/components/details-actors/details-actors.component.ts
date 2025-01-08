@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-details-actors',
@@ -8,23 +11,36 @@ import { Component } from '@angular/core';
   styleUrl: './details-actors.component.scss'
 })
 export class DetailsActorsComponent {
- 
-  actors = [
-    { 
-      cover: 'https://image.tmdb.org/t/p/original/1T21FblunT0y8fz7YaW8JMYgUKm.jpg',
-      name: 'Allu Arjun',
-      role: 'Hero',
-    },
-    { 
-      cover: 'https://image.tmdb.org/t/p/original/cpz0u8sK993MhIQ46xL4l6b40Cg.jpg',
-      name: 'Mahesh Babu',
-      role: 'Hero',
-    },
-    { 
-      cover: 'https://image.tmdb.org/t/p/original/w46Vw536HwNnEzOa7J24YH9DPRS.jpg',
-      name: 'Hritik Roshan',
-      role: 'Hero',
-    }
-  ]
+  @Input() movieId!: string;
+  @Input() limit?: number;
 
+  actors: any[] = []
+   
+ constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService) {
+
+ } 
+ ngOnInit(): void {
+  this.route.paramMap.subscribe(params => {
+    const movieId = params.get('id');
+    if (movieId) {
+      this.fetchactors(movieId);
+      this.movieId = movieId;
+    }
+  });
+ } 
+
+  fetchactors(movieId: string): void {
+    this.movieService.getMovieCredits(movieId).subscribe({
+      next: (res: any) => {
+        this.actors = res.cast || [];
+        if (this.limit) {
+          this.actors = this.actors.slice(0, this.limit);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching actors:', err);
+      },
+    });
+  } 
+ 
 }

@@ -1,24 +1,118 @@
-img {
-    max-width: 150px;
- }
-
-.figure{
-      margin: 1rem; 
-      .card {
-        background-color: #1c1c1c;
-        color: aliceblue;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        transition: all 0.3s;
-        &:hover {
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-      }   
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212; 
+  color: aliceblue; 
+  margin: 0;
+  padding: 20px;
 }
 
+/* Container for the grid */
+.row {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: flex-start;
+  gap: 20px; 
+  margin-top: 20px;
+}
+
+/* Individual Card */
+.figure {
+  margin: 1rem;
+  width: 250px; 
+  
+  .card {
+    background-color: #1c1c1c; 
+    color: aliceblue; 
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .actor-card {
+      flex: 0 0 calc(20% - 20px);
+      text-align: center;
+      background-color: #080808;
+      border-radius: 8px;
+      padding: 0.5rem;
+      width: 200px;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    
+    /* Card Hover Effect */
+    &:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); 
+      transform: translateY(-5px); 
+    }
+
+    /* Card Image */
+    .card-image {
+      width: 100%;
+      height: 60%; 
+      object-fit: cover; 
+      transition: transform 0.3s ease;
+    }
+
+
+    /* Image Hover Effect */
+    &:hover .card-image {
+      transform: scale(1.05); 
+    }
+
+    /* Card Content */
+    .card-body {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}
+
+/* Figure Caption Styling */
 .figure-caption {
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: bold;
+  color: aliceblue;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
+/* Star Icon */
+.bi-star {
+  color: #f39c12;
+}
+
+/* Image Styling */
+img {
+  width: 150px; 
+  border-radius: 5px; 
+  object-fit: cover;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  .row {
+    justify-content: center; 
+  }
+
+  .figure {
+    width: 100%; 
+    margin: 10px;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .card-image {
+    height: 300px;
+  }
+
+  .figure-caption {
+    font-size: 16px; 
+  }
+}

@@ -8,11 +8,12 @@
           *ngIf="selectedTrailerUrl"
           [src]="selectedTrailerUrl"
           title="Movie Trailer"
-          allowfullscreen>
+          allowfullscreen
+          class="video-frame">
         </iframe>
         <div *ngIf="!selectedTrailerUrl" class="no-trailer-message">
           <p>Trailer not available</p>
-          </div>
+        </div>
       </div>
     </div>
 
@@ -20,18 +21,17 @@
       <p class="lead">{{ movieDetails.overview }}</p>
       <div class="row g-3">
         <div class="col-md-4">
-          <div class="card">
+          <div class="card shadow-lg">
             <div class="card-header">Characters</div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item" *ngFor="let star of (credits.cast.slice(0, 3))">
                 {{ star.name }} as {{ star.character }}
-              </li>
-              
+              </li>              
             </ul>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card">
+          <div class="card shadow-lg">
             <div class="card-header">Genres</div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item" *ngFor="let genre of movieDetails.genres">
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card">
+          <div class="card shadow-lg">
             <div class="card-header">Directors</div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item" *ngFor="let director of credits.crew | filterByJob:'Director'">
@@ -57,10 +57,10 @@
   <hr class="my-4">
 
   <div class="row g-4">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <h1>Actors</h1>
       <div class="text-center">
-        <app-details-actors></app-details-actors>
+        <app-details-actors [limit]="5"></app-details-actors>
       </div>
       <div class="text-center mt-3">
         <a class="btn btn-warning" [routerLink]="['/details/actors', movieId]">
@@ -69,6 +69,7 @@
       </div>
     </div>
   </div>
+  
 
   <hr class="my-4">
 
@@ -76,9 +77,9 @@
     <div class="col-md-6">
       <h1>Reviews</h1>
       <div class="text-center">
-        <app-details-reviews></app-details-reviews>
+        <app-details-reviews [limit]="5" (reviewsFetched)="handleReviewsFetched($event)"></app-details-reviews>
       </div>
-      <div class="text-center mt-3">
+      <div class="text-center mt-3" *ngIf="hasReviews">
         <a class="btn btn-warning" [routerLink]="['/details/reviews', movieId]">
           View all reviews
         </a>      
@@ -89,10 +90,10 @@
   <hr class="my-4">
 
   <div class="row g-4">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <h1>Similar Movies</h1>
       <div class="text-center">
-        <app-details-movies></app-details-movies>
+        <app-details-movies [limit]="5"></app-details-movies>
       </div>
       <div class="text-center mt-3">
         <a class="btn btn-warning" [routerLink]="['/details/movies', movieId]">
@@ -101,4 +102,3 @@
       </div>
     </div>
   </div>
-</div>

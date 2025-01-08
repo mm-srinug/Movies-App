@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnChanges, OnInit, Sanitizer, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, Sanitizer, SimpleChanges } from '@angular/core';
 import { DetailsMoviesComponent } from "../details-movies/details-movies.component";
 import { DetailsReviewsComponent } from "../details-reviews/details-reviews.component";
 import { DetailsActorsComponent } from "../details-actors/details-actors.component";
@@ -23,21 +23,26 @@ export class DetailsComponent implements OnInit, OnChanges, AfterContentInit, Af
   showPopup: boolean = false;
   trailers: any[] = [];
   credits: any = {};
-  videos: any = [];
-  
+  hasReviews: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService, private sanitizer: DomSanitizer) {
+  }  
+
+  handleReviewsFetched(hasReviews: boolean): void {
+    this.hasReviews = hasReviews; 
   }
   
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const movieId = params.get('id');
+      const movieId: any = params.get('id');
+      this.movieId = movieId;
       if (movieId) {
         this.getMovieDetails(movieId);
         this.getMovieCredits(movieId);
       }
     });
    } 
+    
   getMovieDetails(movieId: string): void {
     this.movieService.getMovieDetails(movieId).subscribe({
       next: (res: any) => {

@@ -1,8 +1,7 @@
 <div class="actors-container">
-       <!-- Actor Card 1 -->
-       <div class="actor-card"  *ngFor="let actor of actors">
-        <img [src]="actor.cover" alt="Actor 1" class="actor-image">
-         <figcaption class="actor-caption">{{actor.name}}</figcaption>
-         <figcaption class="actor-role">{{actor.role}}</figcaption>
+       <div class="actor-card" *ngFor="let actor of actors">
+         <img [src]="'https://image.tmdb.org/t/p/w500/' + actor.profile_path" [alt]="actor.name" class="actor-image">
+         <figcaption class="actor-caption">{{ actor.name }}</figcaption>
+         <figcaption class="actor-role">{{ actor.character }}</figcaption>
        </div>
 </div>

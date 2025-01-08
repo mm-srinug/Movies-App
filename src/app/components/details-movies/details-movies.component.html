@@ -1,13 +1,19 @@
-
 <div class="row">
-    <div class="col-12">
-            <figure class="figure" *ngFor="let item of details">
-                <div class="card">
-                <img [src]="item.cover" class="card-image img-fluid rounded-start" alt="...">
-                <figcaption class="figure-caption">{{item.title}} </figcaption>
-                <figcaption class="figure-caption"><i class="bi bi-star"></i> <b>{{item.rating}}</b></figcaption>
-            </div>
-            </figure>
+    <div class="col-12" >
+      <figure class="figure" *ngFor="let item of details">
+        <div class="card" [routerLink]="['/details', item.id]">
+          <img 
+            [src]="'https://image.tmdb.org/t/p/w500/' + (item.poster_path || 'assets/default_image.jpg')" 
+            [alt]="item.title || 'No Title'" 
+            class="card-image">
+          <div class="card-body">
+            <figcaption class="figure-caption">{{ item.title || 'No Title' }}</figcaption>
+            <figcaption class="figure-caption">
+              <i class="bi bi-star"></i>  <b>{{ item.vote_count || 0 }}</b>
+            </figcaption>
+          </div>
+        </div>
+      </figure>
     </div>
 </div>
     

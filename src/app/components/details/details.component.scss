@@ -1,33 +1,44 @@
 .card {
     margin: 1rem;
-    .card-header {
-        background-color: #e9e067;
-        color: #3a3636;
-        text-align: center;
-    }  
-    .list-group-item {
-        background-color: #b4bba6;
-        color: #ec3e4a;
-    }
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.container {
-    margin-top: 20px;
-  }
-  
-  .ratio {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    background-color: #e9e067;
+    color: #3a3636;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.list-group-item {
+    background-color: #b4bba6;
+    color: #ec3e4a;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #9eaf8b;
+}
+
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; 
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     max-width: 100%;
     background: #000;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .video-container iframe {
@@ -36,12 +47,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-@media (max-width: 767px) {
-    .video-container {
-        padding-bottom: 75%;
-    }
+    border-radius: 8px;
 }
 
 .no-trailer-message {
@@ -53,5 +59,40 @@
     align-items: center;
     height: 100%;
     text-align: center;
-  }
-  
+    padding: 2rem;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+    .video-container {
+        padding-bottom: 75%;
+    }
+}
+
+
+/* Flexbox Grid Setup for 5 Items per Row */
+.app-details-actors, .app-details-movies {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1rem;
+}
+
+.app-details-actors .card, .app-details-movies .card {
+    height: 100%;
+}
+
+/* Responsive Design: Adjusts to 2 items per row on small screens */
+@media (max-width: 1200px) {
+    .app-details-actors, .app-details-movies {
+        grid-template-columns: repeat(3, 1fr); /* 3 items per row for medium screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .app-details-actors, .app-details-movies {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row for smaller screens */
+    }
+}
