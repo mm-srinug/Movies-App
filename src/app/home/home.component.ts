@@ -110,6 +110,9 @@ export class HomeComponent implements OnInit {
           this.selectedTrailerUrl  = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.selectedTrailerUrl}`);
           this.showPopup = true;
         }
+        else {
+            this.selectedTrailerUrl = null;
+        }
       },
       (error) => console.error(error)
     );

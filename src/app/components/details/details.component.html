@@ -24,9 +24,9 @@
           <div class="card shadow-lg">
             <div class="card-header">Characters</div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let star of (credits.cast.slice(0, 3))">
+              <li class="list-group-item" *ngFor="let star of (credits?.cast?.slice(0, 3) || [])">
                 {{ star.name }} as {{ star.character }}
-              </li>              
+              </li>                          
             </ul>
           </div>
         </div>

@@ -1,0 +1,64 @@
+<div class="feedback-container">
+    <h1 class="text-center">Feedback Form</h1>
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          [class.is-invalid]="feedbackForm.get('name')?.invalid && feedbackForm.get('name')?.touched"
+        />
+        <div *ngIf="feedbackForm.get('name')?.invalid && feedbackForm.get('name')?.touched" class="invalid-feedback">
+          Name is required and must be at least 3 characters.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          class="form-control"
+          [class.is-invalid]="feedbackForm.get('email')?.invalid && feedbackForm.get('email')?.touched"
+        />
+        <div *ngIf="feedbackForm.get('email')?.invalid && feedbackForm.get('email')?.touched" class="invalid-feedback">
+          Please enter a valid email address.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          formControlName="message"
+          class="form-control"
+          [class.is-invalid]="feedbackForm.get('message')?.invalid && feedbackForm.get('message')?.touched"
+        ></textarea>
+        <div *ngIf="feedbackForm.get('message')?.invalid && feedbackForm.get('message')?.touched" class="invalid-feedback">
+          Message is required and must be at least 10 characters.
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">
+       <i class="bi bi-send"></i> Submit
+      </button>
+      </div>
+    </form>
+  
+    <!-- Success Popup -->
+    <div *ngIf="showPopup" class="popup-overlay">
+      <div class="popup">
+        <div class="popup-content">
+          <div class="popup-header">
+            <span class="popup-title">Thank you!</span>
+          </div>
+          <div class="popup-body">
+            <div class="popup-success">&#10004;</div>
+            <h1>Your feedback has been submitted successfully!</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

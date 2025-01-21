@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav *ngIf="!isLoginPage" class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">Movies</a>
+    <a class="navbar-brand" routerLink="/home">Movies</a>
     <button class="navbar-toggler" type="button" 
     data-bs-toggle="collapse" 
     data-bs-target="#navbarSupportedContent" 
@@ -10,16 +10,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/"> <i class="bi bi-house"></i> Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="/home"> <i class="bi bi-house"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active"><i class="bi bi-chat-dots"></i> FeedBack</a>
+          <a class="nav-link active" routerLink="/forms"><i class="bi bi-chat-dots"></i> FeedBack</a>
         </li>
       </ul>
-      <div class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchMovieTitle">
-          <button class="btn btn-success" type="button" [routerLink]="['/search/'+searchMovieTitle]" >Search</button>
-           <!-- <button class="btn btn-primary" type="submit">Log in</button> -->
+      <div class="d-flex align-items-center" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchMovieTitle">
+        <button class="btn btn-success me-2" type="button"  
+        [routerLink]="['/search/'+searchMovieTitle]"  
+        [disabled]="!searchMovieTitle || searchMovieTitle.trim() === ''">Search  
+        </button>  
+        <ng-container>
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </ng-container>
       </div>
     </div>
   </div>
