@@ -8,8 +8,7 @@ import { DetailsComponent } from "./components/details/details.component";
 import { NgModel } from '@angular/forms';
 import { SearchComponent } from "./components/search/search.component";
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   imports: [
@@ -20,7 +19,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     DetailsComponent,
     SearchComponent, 
     RouterModule,
-    NotFoundComponent
+    NotFoundComponent,
+    FormsModule
     ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

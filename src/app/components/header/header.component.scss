@@ -1,3 +1,62 @@
-li,a {
-    cursor: pointer;
-}
+.navbar {  
+    padding: 1rem 1.5rem;  
+    background-color: #343a40;  
+  }  
+  
+  .navbar-brand {  
+    font-size: 1.5rem;  
+    font-weight: bold;  
+    color: #fff;  
+    text-transform: uppercase;  
+  }  
+  
+  .nav-link {  
+    color: #fff;  
+    font-size: 1rem;  
+    transition: color 0.3s ease;  
+  
+    &:hover {  
+      color: #17a2b8;  
+    }  
+  }  
+  
+  input.form-control {  
+    border-radius: 0.5rem;  
+    border: 1px solid #ced4da;  
+    transition: box-shadow 0.3s ease;  
+  
+    &:focus {  
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);  
+    }  
+  }  
+  
+  button.btn {  
+    border-radius: 0.5rem;  
+    font-weight: bold;  
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;  
+  
+    &.btn-success {  
+      background-color: #28a745;  
+      border: none;  
+  
+      &:hover {  
+        background-color: #218838;  
+      }  
+    }  
+  
+    &.btn-primary {  
+      margin-left: 0.3rem;  
+      background-color: #007bff;  
+      border: none;  
+  
+      &:hover {  
+        background-color: #0056b3;  
+      }  
+    }  
+  }  
+  
+  li,  
+  a {  
+    cursor: pointer;  
+  }  
+  

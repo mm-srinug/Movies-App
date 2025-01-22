@@ -4,9 +4,27 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  { path: 'login', 
+    pathMatch: 'full',
+    loadComponent: () => {
+      return import('../app/components/login/login.component').then((m) => m.LoginComponent);
+    }  
+  },
+  {
+    path: 'home',
     pathMatch: 'full',
     loadComponent: () => {
       return import('./home/home.component').then((m) => m.HomeComponent);
+    }
+  },
+  {
+    path: 'forms',
+    pathMatch: 'full',
+    loadComponent: () => {
+      return import('../app/feedback-form/feedback-form.component').then((m) => m.FeedbackFormComponent);
     }
   },
   {

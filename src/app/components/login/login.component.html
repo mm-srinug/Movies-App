@@ -1,0 +1,23 @@
+<div class="login-container">
+    <h1>User Login</h1>
+    <form (ngSubmit)="onLogin()">
+        <div class="input-container">
+          <label class="block text-sm mb-2" for="username">
+            <i class="fas fa-user">
+            </i>
+            Username
+           </label>
+            <input type="text" id="username" [(ngModel)]="username" name="username" required />
+        </div>
+        <div class="input-container">
+          <label class="block  text-sm mb-2" for="password">
+            <i class="fas fa-lock">
+            </i>
+            Password
+           </label>
+            <input type="password" id="password" [(ngModel)]="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
