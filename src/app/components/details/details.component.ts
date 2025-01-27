@@ -2,7 +2,7 @@ import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, S
 import { DetailsMoviesComponent } from "../details-movies/details-movies.component";
 import { DetailsReviewsComponent } from "../details-reviews/details-reviews.component";
 import { DetailsActorsComponent } from "../details-actors/details-actors.component";
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MovieService } from '../../services/movie.service';
@@ -25,7 +25,8 @@ export class DetailsComponent implements OnInit, OnChanges, AfterContentInit, Af
   credits: any = {};
   hasReviews: boolean = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService, private sanitizer: DomSanitizer) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService, 
+    private sanitizer: DomSanitizer, private router: Router ) {
   }  
 
   handleReviewsFetched(hasReviews: boolean): void {
@@ -94,5 +95,8 @@ export class DetailsComponent implements OnInit, OnChanges, AfterContentInit, Af
   ngAfterViewInit(): void {
     console.log('ngAfterViewInit called.');
   } 
+  goBack(): void {
+    this.router.navigate(['/home'], { relativeTo: this.route }); 
+  }
 
 }

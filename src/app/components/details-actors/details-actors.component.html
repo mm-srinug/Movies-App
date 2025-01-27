@@ -1,7 +1,36 @@
 <div class="actors-container">
-       <div class="actor-card" *ngFor="let actor of actors">
+       <div class="actor-card" *ngFor="let actor of actors" (click)="onActorCardClick(actor.id)">
          <img [src]="'https://image.tmdb.org/t/p/w500/' + actor.profile_path" [alt]="actor.name" class="actor-image">
          <figcaption class="actor-caption">{{ actor.name }}</figcaption>
          <figcaption class="actor-role">{{ actor.character }}</figcaption>
        </div>
+</div>
+
+
+<!-- Popup to display actor's tagged images -->
+
+<!-- Popup to display actor's tagged images and details -->
+<div *ngIf="showPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h1>{{ selectedActor.name }}</h1>
+    <div class="actor-bio">
+      <p>
+        <strong>Biography:</strong> 
+        {{ showFullBio ? selectedActor.biography : (selectedActor.biography | slice:0:200) }}
+      </p>
+      <a *ngIf="selectedActor.biography.length > 200" (click)="toggleBio()" style="cursor: pointer; color: rgb(74, 113, 240); text-decoration: underline;">
+        {{ showFullBio ? 'Read Less' : 'Read More' }}
+      </a>
+    </div>
+    <div class="actor-birthday">
+      <p><strong>Birthday:</strong> {{ selectedActor?.birthday | date: 'longDate' }}</p>
+    </div>
+    <div *ngIf="selectedActor?.place_of_birth" class="actor-birthplace">
+      <p><strong>Place of Birth:</strong> {{ selectedActor?.place_of_birth }}</p>
+    </div>
+    <div *ngIf="selectedActor?.profile_path" class="actor-profile">
+      <img [src]="'https://image.tmdb.org/t/p/w500/' + selectedActor.profile_path" [alt]="selectedActor.name" class="actor-image">
+    </div>
+    <button (click)="closePopup()">Close</button>
+  </div>
 </div>

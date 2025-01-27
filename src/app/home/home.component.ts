@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
   selectedTrailerUrl: import('@angular/platform-browser').SafeResourceUrl | null = null;
   showPopup: boolean = false;
   moviecards: any[] = []
-
+  currentIndex: number = 0;
+  totalSlides: number = 0;
   constructor(private http: HttpClient, private movieService: MovieService, private sanitizer: DomSanitizer) { 
    }
 
@@ -30,6 +31,12 @@ export class HomeComponent implements OnInit {
     this.fetchMovies();
     this.getPopularMovies();
     this.fetchcardMovies();
+  } 
+  isFirstSlide(): boolean {
+    return this.currentIndex >= 1;
+  }
+  isLastSlide(): boolean {
+    return this.currentIndex === this.totalSlides - 1;
   }
 
   updateLastUpdated(timestamp: number): string {
