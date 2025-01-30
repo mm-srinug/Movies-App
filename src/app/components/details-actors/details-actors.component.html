@@ -18,7 +18,7 @@
         <strong>Biography:</strong> 
         {{ showFullBio ? selectedActor.biography : (selectedActor.biography | slice:0:200) }}
       </p>
-      <a *ngIf="selectedActor.biography.length > 200" (click)="toggleBio()" style="cursor: pointer; color: rgb(74, 113, 240); text-decoration: underline;">
+      <a *ngIf="selectedActor.biography.length > 200" (click)="toggleBio(); $event.stopPropagation()" style="cursor: pointer; color: rgb(74, 113, 240); text-decoration: underline;">
         {{ showFullBio ? 'Read Less' : 'Read More' }}
       </a>
     </div>

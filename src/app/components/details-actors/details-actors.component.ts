@@ -11,7 +11,7 @@ import { MovieService } from '../../services/movie.service';
   styleUrl: './details-actors.component.scss'
 })
 export class DetailsActorsComponent {
-  @Input() movieId!: string;
+  @Input() movieId!: string | null;
   @Input() limit?: number;
   showPopup = false;
   selectedActor: any = null;
@@ -47,16 +47,18 @@ export class DetailsActorsComponent {
 
 
   onActorCardClick(actorId: number): void {
-    this.movieService.getActorDetails(actorId).subscribe({
-      next: (res: any) => {
-        this.selectedActor = res
-        this.showPopup = true; 
-        this.showFullBio = false;
-      },
-      error: (err) => {
-        console.error('Error fetching tagged images:', err);
-      }
-    });
+    if (!this.limit) {
+      this.movieService.getActorDetails(actorId).subscribe({
+        next: (res: any) => {
+          this.selectedActor = res
+          this.showPopup = true; 
+          this.showFullBio = false;
+        },
+        error: (err) => {
+          console.error('Error fetching tagged images:', err);
+        }
+      });
+    }
   }
   toggleBio(): void {
     this.showFullBio = !this.showFullBio;
