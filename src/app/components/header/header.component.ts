@@ -23,6 +23,10 @@ export class HeaderComponent {
     }; 
 
   ngOnInit(): void {
+    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+    }
     this.authService.isLoggedIn$.subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
     });
@@ -36,6 +40,14 @@ export class HeaderComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+  }
+
+  
 
 }
 

@@ -1,6 +1,10 @@
 <div class="container-fluid" *ngIf="movieDetails">
-  <h1 class="text-center my-4">{{ movieDetails.title }}</h1>
-
+  <div class="d-flex align-items-center my-4">
+    <button class="btn btn-primary me-3" (click)="goBack()">
+      Back
+    </button>
+    <h1 class="flex-grow-1 text-center">{{ movieDetails.title }}</h1>
+  </div>
   <div class="row g-4">
     <div class="col-lg-6">
       <div class="ratio ratio-16x9">

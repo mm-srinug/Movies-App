@@ -56,7 +56,11 @@ export class MovieService {
     const apiUrl = `${environment.apiBaseUrl}/movie/${movieId}/reviews?api_key=${environment.apiKey}`;
     return this.http.get(apiUrl);
   }
-   
+  
+  getActorDetails(actorId: number): Observable<any> {
+    const apiUrl = `${environment.apiBaseUrl}/person/${actorId}?api_key=${environment.apiKey}`;
+    return this.http.get(apiUrl);
+  }
 }
 
 

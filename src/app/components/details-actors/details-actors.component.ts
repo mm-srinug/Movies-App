@@ -11,11 +11,13 @@ import { MovieService } from '../../services/movie.service';
   styleUrl: './details-actors.component.scss'
 })
 export class DetailsActorsComponent {
-  @Input() movieId!: string;
+  @Input() movieId!: string | null;
   @Input() limit?: number;
-
+  showPopup = false;
+  selectedActor: any = null;
   actors: any[] = []
-   
+  showFullBio: boolean = false;
+
  constructor(private route: ActivatedRoute, private http: HttpClient, private movieService: MovieService) {
 
  } 
@@ -41,6 +43,28 @@ export class DetailsActorsComponent {
         console.error('Error fetching actors:', err);
       },
     });
-  } 
+  }  
+
+
+  onActorCardClick(actorId: number): void {
+    if (!this.limit) {
+      this.movieService.getActorDetails(actorId).subscribe({
+        next: (res: any) => {
+          this.selectedActor = res
+          this.showPopup = true; 
+          this.showFullBio = false;
+        },
+        error: (err) => {
+          console.error('Error fetching tagged images:', err);
+        }
+      });
+    }
+  }
+  toggleBio(): void {
+    this.showFullBio = !this.showFullBio;
+  }
+  closePopup(): void {
+    this.showPopup = false; 
+  }
  
 }

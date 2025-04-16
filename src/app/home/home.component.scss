@@ -109,3 +109,10 @@
     box-shadow: none;
   }
   
+  .btn-outline-secondary {
+    border-color: rgb(55, 248, 64)
+  } 
+  .btn-outline-secondary:hover {
+    background-color: rgb(83, 83, 81);
+    color: rgb(74, 240, 32); 
+  }
