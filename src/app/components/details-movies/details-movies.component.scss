@@ -96,23 +96,28 @@ img {
 /* Responsive Design for smaller screens */
 @media (max-width: 768px) {
   .row {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
     justify-content: center; 
   }
 
   .figure {
     width: 100%; 
-    margin: 10px;
+    margin: 10px 0;
   }
 
   .card {
-    width: 90%;
+    width: 100%;
+    min-width: 0;
   }
 
   .card-image {
-    height: 300px;
+    height: 200px;
   }
 
   .figure-caption {
     font-size: 16px; 
   }
 }
+ 
