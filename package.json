@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
     "@ionic/angular": "^8.4.1",
-    "bootstrap": "^4.0.0-alpha.4",
+    "bootstrap": "^4.6.2",
     "firebase": "^11.1.0",
     "firebase-admin": "^13.0.1",
     "google-one-tap": "^1.0.6",
