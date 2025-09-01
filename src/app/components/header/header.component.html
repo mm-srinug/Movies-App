@@ -42,7 +42,8 @@
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchMovieTitle">
         <button class="btn btn-success me-2" type="button"  
         [routerLink]="['/search/'+searchMovieTitle]"  
-        [disabled]="!searchMovieTitle || searchMovieTitle.trim() === ''">Search  
+        [disabled]="!searchMovieTitle || searchMovieTitle.trim() === ''"
+        (click)="searchMovieTitle = ''">Search  
         </button>  
         <ng-container>
           <button class="btn btn-danger" (click)="logout()">Logout</button>

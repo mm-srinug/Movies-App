@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   --primary-bg-color: #ffffff;
-  --primary-text-color: #333;
+  --primary-text-color: #000000;
   --main-bg-color: #ffffff;
   font-size: 16px;
   background-color: var(--main-bg-color);
@@ -12,7 +12,7 @@ body {
 }
 
 .dark-mode {
-  --primary-bg-color: #222;
+  --primary-bg-color: #000000;
   --primary-text-color: #ffffff;
   --main-bg-color: #121212;
 }
