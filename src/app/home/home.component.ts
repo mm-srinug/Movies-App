@@ -61,12 +61,14 @@ export class HomeComponent implements OnInit {
   fetchcardMovies(): void {
     this.movieService.fetchcardMovies().subscribe({
       next: (res: any) => {
-        this.moviecards = res.results.map((card: any) => ({
+        this.moviecards = res.results.map((card: any) => {
+          return {
              id : card.id,
              title: card.title,
              description: card.overview,
-            imageUrl: `https://image.tmdb.org/t/p/original${card.poster_path}`
-        }));
+             imageUrl: `https://image.tmdb.org/t/p/original${card.poster_path}`,
+             release_date: card.release_date,
+        }});
       },
       error: (err) => {
         console.log(err);

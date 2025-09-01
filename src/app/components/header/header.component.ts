@@ -17,7 +17,7 @@ export class HeaderComponent {
   title = 'My first Angular app';
   isLoggedIn = false; 
   isLoginPage = false;
- public searchMovieTitle = "";
+   public searchMovieTitle = "";
 
  constructor(private authService: AuthService, private router: Router) {
     }; 
